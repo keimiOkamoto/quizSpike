@@ -1,29 +1,17 @@
-import java.rmi.registry.Registry;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
-public class ServerImpl implements Service {
-    @Override
-    public int storeQuestions() {
-
-        return 0;
-    }
-
-    public static void main(String args[]) {
-
+public class ServerImpl {
+    public static void main(String[] args) {
         try {
-            ServerImpl aServer = new ServerImpl();
-            Service stub = (Service) UnicastRemoteObject.exportObject(aServer, 0);
+            Registry registry = LocateRegistry.createRegistry(1099);
+            registry.rebind("ListMaker", new ListMakerImpl());
 
-            // Bind the remote object's stub in the registry
-            Registry registry = LocateRegistry.getRegistry();
-            registry.bind("Hello", stub);
-
-            System.err.println("Server ready");
-        } catch (Exception e) {
-            System.err.println("Server exception: " + e.toString());
+            System.out.println("Server is ready.");
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
 }
+
