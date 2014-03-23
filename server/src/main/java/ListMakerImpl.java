@@ -17,7 +17,7 @@ public class ListMakerImpl extends UnicastRemoteObject implements ListMaker {
      */
     @Override
     public int createList(String title) {
-        /*
+
         List<String> quiz = new ArrayList<>();
 
         String q1 = "What is the meaning of life?";
@@ -27,7 +27,7 @@ public class ListMakerImpl extends UnicastRemoteObject implements ListMaker {
 
         QuizContainer quizContainer = new QuizContainer();
         quizContainer.addQuiz(quiz, title);
-        */
+
         return 24;
     }
 }

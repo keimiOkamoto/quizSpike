@@ -8,7 +8,6 @@ public class ServerImpl {
     public static void main(String[] args) {
         ServerImpl server = new ServerImpl();
         server.launch();
-
     }
 
     private void launch() {
@@ -17,15 +16,8 @@ public class ServerImpl {
             System.setSecurityManager(sm);
         }
         try {
-            /*
-            registry.rebind("ListMaker", new ListMakerImpl());
-            */
             LocateRegistry.createRegistry(1099);
-            ListMakerImpl aListMaker = new ListMakerImpl();
-
-            String host = "//localhost/";
-            String serviceName = "createList";
-            Naming.rebind(host + serviceName, aListMaker);
+            Naming.rebind("//localhost/createList", new ListMakerImpl());
 
             System.out.println("Server is ready.");
         } catch (RemoteException e) {
