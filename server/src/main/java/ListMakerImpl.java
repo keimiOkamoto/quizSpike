@@ -5,6 +5,10 @@ import java.util.List;
 
 public class ListMakerImpl extends UnicastRemoteObject implements ListMaker {
 
+    /**
+     * constructor
+     * @throws RemoteException
+     */
     protected ListMakerImpl() throws RemoteException {
     }
 
