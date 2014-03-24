@@ -1,28 +1,36 @@
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class ServerImpl {
+
+    private QuizContainerImpl quizContainer;
+
+    public ServerImpl() throws RemoteException {
+        quizContainer = new QuizContainerImpl();
+    }
+
     public static void main(String[] args) {
-        ServerImpl server = new ServerImpl();
-        server.launch();
+        try {
+            ServerImpl server = new ServerImpl();
+            server.launch();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
     }
 
     private void launch() {
-        SecurityManager sm = new MySecurityManager();
         if (System.getSecurityManager() == null) {
-            System.setSecurityManager(sm);
+            System.getSecurityManager();
         }
         try {
-            LocateRegistry.createRegistry(1099);
-            Naming.rebind("//localhost/createList", new ListMakerImpl());
+            Registry registry = LocateRegistry.createRegistry(1099);
+            registry.rebind("ListMaker", new ListMakerImpl());
+            registry.rebind("quizContainer", quizContainer);
 
             System.out.println("Server is ready.");
         } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }

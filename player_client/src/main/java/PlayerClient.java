@@ -2,20 +2,21 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.List;
 
-public class SetupClient {
+public class PlayerClient {
     public static void main(String[] args) {
         try {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
-            ListMaker aListMaker = (ListMaker) registry.lookup("ListMaker");
             QuizContainer quizContainer = (QuizContainer) registry.lookup("quizContainer");
 
-            //Creates a list, list returns id
-            int id = aListMaker.createList("Quiz about cats", quizContainer);
-            System.out.println("Returned list ID is " + id);
+            List<String> quiz = quizContainer.getQuiz("Quiz about cats");
+            String element1 = quiz.get(0);
+            String element2 = quiz.get(1);
+            System.out.print(element1 + "\n" + element2);
+
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
         }
     }
 }
-

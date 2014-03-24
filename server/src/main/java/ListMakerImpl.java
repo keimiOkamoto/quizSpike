@@ -6,18 +6,17 @@ import java.util.List;
 public class ListMakerImpl extends UnicastRemoteObject implements ListMaker {
 
     /**
-     * constructor
+     *
      * @throws RemoteException
      */
-    protected ListMakerImpl() throws RemoteException {
+    public ListMakerImpl() throws RemoteException {
     }
 
     /* Creates a list then returns an id
-     * Test to see if the list can be stored on the server.
-     */
+         * Test to see if the list can be stored on the server.
+         */
     @Override
-    public int createList(String title) {
-
+    public int createList(String title, QuizContainer quizContainer) throws RemoteException {
         List<String> quiz = new ArrayList<>();
 
         String q1 = "What is the meaning of life?";
@@ -25,9 +24,7 @@ public class ListMakerImpl extends UnicastRemoteObject implements ListMaker {
         quiz.add(q1);
         quiz.add(q2);
 
-        QuizContainer quizContainer = new QuizContainer();
         quizContainer.addQuiz(quiz, title);
-
         return 24;
     }
 }
