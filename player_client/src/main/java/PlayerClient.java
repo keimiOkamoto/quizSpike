@@ -11,9 +11,7 @@ public class PlayerClient {
             QuizContainer quizContainer = (QuizContainer) registry.lookup("quizContainer");
 
             List<String> quiz = quizContainer.getQuiz("Quiz about cats");
-            String element1 = quiz.get(0);
-            String element2 = quiz.get(1);
-            System.out.print(element1 + "\n" + element2);
+            System.out.print(quiz.get(0) + "\n" + quiz.get(1));
 
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
